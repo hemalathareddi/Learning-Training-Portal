@@ -92,7 +92,7 @@ function About() {
 
     <>
       <Button variant="success" onClick={handleShow}>
-      < MdPermContactCalendar style={{fontSize:"30",marginTop:"-10%",color:"cyan"}}/> CONTACT US
+      < MdPermContactCalendar style={{fontSize:"30",marginTop:"-10%",color:"cyan"}}/> CONTACT
       </Button>
 
       <Offcanvas show={show} onHide={handleClose}>

@@ -1,18 +1,18 @@
-let express = require("express");
-let cors = require("cors");
-let mongoose = require("mongoose");
-let morgan = require("morgan");
-let multer = require("multer");
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const morgan = require("morgan");
+const multer = require("multer");
 
 
 
 let connectToMDB = async()=>{
     try {
        await mongoose.connect("mongodb+srv://chirrasandhya98:Pulse@cluster0.jme9se8.mongodb.net/?retryWrites=true&w=majority");
-       console.log("Successfully connected MDB ");
+       console.log("Successfully connected 🍃");
         
     } catch (error) {
-        console.log("Unable to connecte MDB");
+        console.log("Unable to connect 🍃");
         
     }
    
@@ -101,7 +101,7 @@ app.post("/signup",async (req,res)=>{
 
 
 app.listen(1414,()=>{
-    console.log("Listening  to port 2222 ");
+    console.log("Server is running🔥");
 })
 
 
