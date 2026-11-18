@@ -12070,7 +12070,7 @@ span{
 }
 
 body{
-  background-color: #333333;
+  background-color: black;
 }
 
 form{
@@ -12078,7 +12078,16 @@ form{
   border: 1px solid wheat;
   background-color: white;
   width: 400px;
-  height: 50vh;
+  height: 1400px;
+}
+.loginForm{
+
+  display: inline-block;
+  border: 1px solid wheat;
+  background-color: white;
+  width: 402px;
+  height: 300px;
+
 }
 form div{
   margin: 20px;
@@ -12106,7 +12115,7 @@ form div{
   position: relative;
   bottom:90px;
   left: 100px;
-  
+ 
   
 }
 .login{
@@ -12117,10 +12126,10 @@ form div{
 
 }
 
-img{
+/* img{
   width: 200px;
   height: 200px;
-}
+} */
 .checkbox{
   zoom: 1;
 }
@@ -12153,8 +12162,8 @@ img{
 }
 a{
 
-  text-decoration: none;
- color: lightcoral;
+text-decoration: none;
+ color: red;
 }
 
 .brn1{
@@ -12168,8 +12177,8 @@ a{
   display: inline-block;
   border: 1px solid wheat;
   background-color: white;
-  width: 450px;
-  height: 42vh;
+  height: 280px;
+ 
 
 }
 .submit{
@@ -12177,16 +12186,17 @@ a{
   font-size: 1.5rem;
   position: relative;
   left: 120px;
-  bottom: 2px;
+ 
+
 
 }
 
 #back{
   
   font-size: 0.3rem;
-   position: relative;
+  position: relative;
   right: 125px;
-  bottom: 60px;
+
  
 }
 

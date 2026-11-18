@@ -54,10 +54,10 @@ function About() {
   return (
     <div className='about' style={{ backgroundColor: isDarkMode ? 'black' : 'white', color: isDarkMode ? 'white' : 'black' }}>
 
-<Navbar style={{width:"100%"}} className='main' bg="dark" data-bs-theme="dark">
+<Navbar  className='main' bg="dark" data-bs-theme="dark">
     <Container>
      
-<Navbar.Brand className='navbar' href="#home"><img style={{marginLeft:"-30%",width:'47%'}}  src='https://pulse.brninfotech.com/pulse/assets/admin/layout/img/logo-big.png'></img></Navbar.Brand>
+<Navbar.Brand className='navbar' href="#home"><img style={{marginLeft:"-40%",width:'55%'}}  src='https://pulse.brninfotech.com/pulse/assets/admin/layout/img/logo-big.png'></img></Navbar.Brand>
       <Nav className="me-auto">
       
         {/* <Nav.Link  href="#home"  onClick={()=>{
@@ -97,7 +97,7 @@ function About() {
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title><img style={{width:'40%'}} src='https://pulse.brninfotech.com/pulse/assets/admin/layout/img/logo-big.png'></img></Offcanvas.Title>
+          <Offcanvas.Title><img style={{width:'60%'}}  src='https://pulse.brninfotech.com/pulse/assets/admin/layout/img/logo-big.png'></img></Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <h4><mark>#</mark>Web Development & Mobile Apps Practical Training'</h4>
@@ -323,7 +323,8 @@ Year of Passout:  EEE-2014
     </Card>
     </div>
 
-   
+  <br></br>
+  <br></br>
 
 </div>
 

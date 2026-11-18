@@ -5,19 +5,25 @@ import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Accordion from 'react-bootstrap/Accordion';
 import Table from 'react-bootstrap/Table';
+import { useSelector } from 'react-redux';
+import { IoHappy } from "react-icons/io5";
+import { FaEdit } from "react-icons/fa";
+import { HiOutlineAdjustmentsVertical } from "react-icons/hi2";
+import { MdLogout } from "react-icons/md";
+
 
 function Home() {
 
- 
+ let storeObj = useSelector((store)=>{ return store})
 
   return (
     
-    <div className='main'>
+    <div className='main' style={{backgroundColor:'white'}}>
         
-    <Navbar style={{position:"fixed",width:"100%"}} className='main' bg="dark" data-bs-theme="dark">
+    <Navbar style={{marginTop:'3%'}} className='main' bg="dark" data-bs-theme="dark">
     <Container>
-<Navbar.Brand className='navbar' href="#home"><img style={{marginLeft:"-40%"}}  src='https://pulse.brninfotech.com/pulse/assets/admin/layout/img/logo.png'></img></Navbar.Brand>
-      <Nav className="me-auto">
+<Navbar.Brand className='navbar' href="#home"><img style={{marginLeft:'-62%',width:'70%'}} src='https://pulse.brninfotech.com/pulse/assets/admin/layout/img/logo.png'></img> </Navbar.Brand>
+      <Nav className="me-auto" style={{marginLeft:'-10%'}}>
         <Nav.Link  href="#home" onClick={()=>{
          }}><b>Home</b></Nav.Link>
         <Nav.Link href="#features" onClick={()=>{
@@ -62,10 +68,25 @@ function Home() {
       </Dropdown.Menu>
     </Dropdown>
 
+ <Dropdown id='profile' style={{marginLeft:'0%'}}>
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+      <b><IoHappy style={{color:'rgb(36,169,186)',marginTop:'-4%'}} /> {storeObj && storeObj.loginData && storeObj.loginData.data ? `${storeObj.loginData.data.name} `:'user'}</b>
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+       
+        <Dropdown.Item href="/Login" ><MdLogout /> Log Out</Dropdown.Item>
+        
+      </Dropdown.Menu>
+    </Dropdown>
+
+    <Nav.Link  title='Your profile'  > </Nav.Link>
+
 
       </Nav>
     </Container>
   </Navbar>
+  
   <br></br>
   <br></br>
   <br></br>
@@ -73,12 +94,12 @@ function Home() {
   <br></br>
 
 <div style={{display:'inline-block'}}>
-<img style={{width:"30%",marginLeft:"70%",border:'2px solid black',borderRadius:"2%"}} src='https://th.bing.com/th/id/OIP.yUx-RuSTgQYjdpp0muRIowHaHa?rs=1&pid=ImgDetMain'></img>
+<img style={{marginLeft:"-100%",borderRadius:"2%",width:'40%'}} src={storeObj && storeObj.loginData && storeObj.loginData.data ? `http://localhost:1414/${storeObj.loginData.data.profile}`:'https://th.bing.com/th/id/OIP.5X5YCMnONnnBftR_180S0gAAAA?rs=1&pid=ImgDetMain'}></img>
+<p><strong style={{marginLeft:'-103%'}}> {storeObj && storeObj.loginData && storeObj.loginData.data ? `${storeObj.loginData.data.name} `:'user'}</strong></p>
+</div> 
 
-</div>
 
- 
-<h6 style={{color:"red",marginLeft:"51%",marginTop:"-9%" }}><img style={{width:"20px"}} src='https://cdn-icons-png.flaticon.com/256/3161/3161545.png'></img> ATTENDANCE SUMMARY</h6>
+<h6 style={{color:"red",marginLeft:"15%",marginTop:"-20%" }}><HiOutlineAdjustmentsVertical /> ATTENDANCE SUMMARY</h6>
 
 
 <Table striped style={{width:"30%",marginLeft:"51%"}}>
@@ -159,7 +180,7 @@ function Home() {
 <div id='accordion'>
 <Accordion >
       <Accordion.Item eventKey="0" >
-        <Accordion.Header ><img style={{width:"20px"}} src='https://cdn-icons-png.flaticon.com/128/1159/1159633.png'></img> <strong>Attendance Details</strong></Accordion.Header>
+        <Accordion.Header > <strong><FaEdit /> Attendance Details</strong></Accordion.Header>
         <Accordion.Body>
           
 

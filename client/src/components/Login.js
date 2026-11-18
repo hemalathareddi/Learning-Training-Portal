@@ -1,10 +1,21 @@
-import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import {useDispatch} from 'react-redux';
 
 
 
 
 function Login() {
+
+  
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
+  useEffect(()=>{
+
+    axios.defaults.baseURL = 'http://localhost:1414/';
+
+  },[])
 
   let emailInputRef=useRef();
   let emailSpanRef=useRef();
@@ -35,15 +46,40 @@ function Login() {
       }
     }
 
+    let validateLoginThruAxios = async ()=>{
+
+      let dataToSend = new FormData();
+      dataToSend.append("email",emailInputRef.current.value);
+      dataToSend.append("password",passwordInputRef.current.value);
+      
+      let response = await axios.post("/login",dataToSend);
+      console.log(response);
+      
+      if(response.data.status == "Success"){
+        console.log(response.data);
+    
+        dispatch({type:'login',data:response.data});
+    
+        alert(response.data.msg)
+        navigate("/Home");
+      }else{
+        alert(response.data.msg)
+      }
+    
+    
+      console.log(response); 
+        
+       };
+
   return (
     <div className='App'>
 
         <div>
-         <img src='./images/brn.png'></img>
+         <img style={{width:'20%'}} src='./images/brn.png'></img>
         </div> 
 
        
-    <form >
+    <form className='loginForm'>
      
         <p className='sign'>Sign In</p>
 
@@ -63,10 +99,12 @@ function Login() {
         <span ref={passwordSpanRef}></span>
         </div>
         
-         <div className='login'>
-        <button style={{height:'40px',backgroundColor:'darkcyan',color:'whitesmoke'}}>LOGIN</button>
-        </div>
+      
+<button type='button'  style={{marginLeft:'-59%',backgroundColor:'green',color:'white'}} onClick={()=>{
 
+validateLoginThruAxios();
+
+}}>LOGIN</button>
        
 
         <div  className='check'>
@@ -75,22 +113,19 @@ function Login() {
          </div>
 
          
-         <div className='link'>
+         <div className='link' style={{marginLeft:'-30%',marginTop:'11%'}}>
 
-         <Link to="/Forgot">Forgot Password?</Link>
+         <Link  to="/Forgot">Forgot Password?</Link>
              
           </div>
 
          <div className='account'>
-          <p>
-          <a href='#' className='Sign'>CREATE AN ACCOUNT</a>
-          </p>
+        <a style={{marginLeft:'-50%'}} href='/Signup' className='Sign'>CREATE AN ACCOUNT</a>
+         
           </div>
 
-       
-
-          <div className='brn'>
-            <a href='http://www.brninfotech.com/'>2023 © BRN Infotech Pvt. Ltd.</a>
+     <div className='brn'>
+            <a style={{marginLeft:'-57%'}} href='http://www.brninfotech.com/'>2023 © BRN Infotech Pvt. Ltd.</a>
         </div>
 
         

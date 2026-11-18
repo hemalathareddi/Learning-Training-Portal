@@ -1,16 +1,29 @@
 
-import React, {  useRef, useState } from "react";
+import axios from "axios";
+import React, {  useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {
 
-    let navigate = useNavigate()
 
-    let [image, setimage] = useState("./images/dummy.jpg");
+  useEffect(()=>{
+
+    axios.defaults.baseURL = 'http://localhost:1414/';
+
+
+  },[])
+    let navigate = useNavigate()
+    let [gender,setGender] = useState('');
+    let [profile, setProfile] = useState("./images/dummy.jpg");
   let nameInputRef=useRef();
   let nameSpanRef=useRef();
+  let genderSelectedRef = useRef();
+ let marriedSelectedRef = useRef()
+ let profileInputRef = useRef();
   let mobileInputRef=useRef();
   let mobileSpanRef=useRef();
+  let cityInputRef = useRef();
+  let stateSelectedRef = useRef();
   let emailInputRef=useRef();
   let emailSpanRef=useRef();
   let passwordInputRef=useRef();
@@ -56,20 +69,67 @@ if(result==true){
 }
 
 }
+
+
+let sendDataToServer = async()=>{
+
+  let dataToSend = new FormData();
+  dataToSend.append("name",nameInputRef.current.value);
+  dataToSend.append("gender",genderSelectedRef.current.value);
+  dataToSend.append("married",marriedSelectedRef.current.value);
+ 
+for(let i=0;i<profileInputRef.current.files.length;i++){
+  dataToSend.append("profile",profileInputRef.current.files[i]);
+}
+  dataToSend.append("number",mobileInputRef.current.value);
+  dataToSend.append("city",cityInputRef.current.value);
+  dataToSend.append("state",stateSelectedRef.current.value);
+  dataToSend.append("email",emailInputRef.current.value);
+  dataToSend.append("password",passwordInputRef.current.value);
+  dataToSend.append("rePassword",reEnterPasswordInputRef.current.value);
+ 
+
+  let response = await axios.post("/signup",dataToSend);
+  console.log(response);
+ 
+
+
+}
+
+
+let signupFillFields =()=>{
+
+  if(nameInputRef.current.value.length ==0 ||
+    marriedSelectedRef.current.value.length ==0 ||
+    genderSelectedRef.current.value.length ==0 ||
+    profileInputRef.current.value.length ==0 ||
+    emailInputRef.current.value.length ==0 ||
+    passwordInputRef.current.value.length ==0 ||
+    reEnterPasswordInputRef.current.value.length ==0||
+    cityInputRef.current.value.length ==0 ||
+    stateSelectedRef.current.value.length ==0 || 
+    mobileInputRef.current.value.length == 0
+
+    ){
+    alert("Please fill in required fields");
+ }else{
+  alert("successfully created an account");
+ }
+
+ }
+
+
   return (
     <div className="signUp">
-         <img src="./images/logo.png"></img>
+         <img style={{width:'20%'}} src="./images/logo.png"></img>
       {/* <h3>Learn.Pratice.Perform</h3> */}
       <div>
-        <form>
+        <form >
           <div>
             <p className="sighHead">Sign Up</p>
           </div>
           <div>
-            <p>
-              Enter your name exactly as per your educational <br></br>{" "}
-              certificate
-            </p>
+            <p>Enter your name exactly as per your educational certificate</p>
           </div>
           <div>
             <input ref={nameInputRef}
@@ -87,14 +147,14 @@ if(result==true){
       
         
           <div  className="select">
-            <select  >
+            <select  ref={genderSelectedRef}>
               <option className="option">Choose Gender</option>
-              <option>Female</option>
-              <option>Male</option>
+              <option >Female</option>
+              <option >Male</option>
             </select>
             </div>
             <div>
-            <select>
+            <select ref={marriedSelectedRef}>
               <option>Choose Marital Status</option> 
               <option>Married</option>
               <option>Single</option>
@@ -102,20 +162,16 @@ if(result==true){
             </div>
 
             <div>
-              <img className="image" src={image}></img>
+              <img className="image" src={profile}></img>
             </div>
             <div className="file">
-              <input
-                type="file"
-                onChange={(e) => {
-                  console.log(e.target.files);
-                  let selectimage = URL.createObjectURL(e.target.files[0]);
-                  console.log(selectimage);
-                  setimage(selectimage);
-                }}
-              ></input>
+            <input type="file" ref={profileInputRef} onChange={()=>{
+              let selectedURL = URL.createObjectURL(profileInputRef.current.files[0]);
+              setProfile(selectedURL);
+            }}></input>
+
               <div>
-                <input  ref={mobileInputRef}   className="signupInput" placeholder="Mobile No"
+            <input  ref={mobileInputRef}   className="signupInput" placeholder="Mobile No"
                 onChange={()=>{
                   validateMobileNo(mobileInputRef,mobileSpanRef);
                
@@ -125,11 +181,11 @@ if(result==true){
                 
               </div>
               <div>
-                <input     className="signupInput" placeholder="City/Town"></input>
+                <input  className="signupInput" placeholder="City/Town" ref={cityInputRef}></input>
               </div>
               <div>
           
-          <select>
+          <select ref={stateSelectedRef}>
             <option>choose your state</option>
             <option value="Telangana">Telangana</option>
             <option value="Andra Pradesh">Andra Pradesh</option>
@@ -176,7 +232,7 @@ if(result==true){
                 <span ref={emailSpanRef}></span>
               </div>
               <div>
-                <input ref={passwordInputRef} className="signupInput" placeholder="Password"
+                <input type="password"  ref={passwordInputRef} className="signupInput" placeholder="Password"
                 onChange={()=>{
                   validatePassword(passwordInputRef,passwordSpanRef);
                 }}
@@ -187,7 +243,7 @@ if(result==true){
                 <span ref={passwordSpanRef}></span>
               </div>
               <div>
-                <input ref={reEnterPasswordInputRef}  className="signupInput" placeholder="Re-type Your Password"
+                <input type="password" ref={reEnterPasswordInputRef}  className="signupInput" placeholder="Re-type Your Password"
                 onChange={()=>{
                   if(passwordInputRef.current.value==reEnterPasswordInputRef.current.value){
                     reEnterPasswordSpanRef.current.innerHTML="✅";
@@ -208,15 +264,20 @@ if(result==true){
          </div>
          <div>
        {/* <Link></Link> */}
-       <a href="https://docs.google.com/document/d/1UNc8jOJtjQJttCxogPfFQcXFl6gNm8iuOwiRfbkmXcw/edit">Terms of Service & Privacy Policy</a>
+       <a style={{marginLeft:'-10%'}} href="https://docs.google.com/document/d/1UNc8jOJtjQJttCxogPfFQcXFl6gNm8iuOwiRfbkmXcw/edit">Terms of Service & Privacy Policy</a>
        </div>
        <div>
-       <button className="back" onClick={()=>{
-            navigate("/");
+       
+       
+       <button  className="back" onClick={()=>{
+            navigate("/Login");
        }}>BACK</button>
        </div>
        <div>
-       <button className="submit">SUBMIT</button>
+       <button style={{width:'30%',marginTop:'-20%'}} className="submit" type="button" onClick={()=>{
+        sendDataToServer();
+        signupFillFields();
+       }}>SUBMIT</button>
        </div>
           </div>
         </form>
